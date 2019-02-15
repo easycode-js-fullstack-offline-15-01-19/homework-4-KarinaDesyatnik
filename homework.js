@@ -5,22 +5,22 @@
 //количество чисел и возвращать их произведение: multiply(1,2,3) = 6 (1*2*3)
 
 function multiply() {
-  let num = 1;
-  if (arguments.length === 0) {
+  if (!arguments.length) {
     return 0;
   }
   for (let i = 0; i < arguments.length; i++) {
-    num *= arguments[i];
-  return num;
+    res *= arguments[i];
   }
+  return res;
 }
-//console.log(multiply());
+
+multiply(1, 2, 3, 4, 12, 21);
 
 //2. Создать функцию, которая принимает строку и возвращает строку-перевертыш: reverseString(‘test’) // “tset”.
 
-function reverseString(string = 'test') {
-   newStr = string.split('').reverse().join('');
-   return newStr;
+function reverseString(str) {
+  
+   return str.split("").revers().join("");
 }
 //console.log(reverseString());
 
@@ -80,10 +80,7 @@ getArray(10);
 //  новый массив с дублированными элементами входного массива:
 // doubleArray([1,2,3]) // [1,2,3,1,2,3]
 function doubleArray(arr) {
-  let str = arr.join(' ');
-  str += ' ' + str;
-  let result = str.split(' ');
-  return result;
+  return arr.concat(arr);
 }
 //doubleArray();
 
@@ -93,16 +90,13 @@ function doubleArray(arr) {
 // changeCollection([1,2,3], [‘a’, ’b’, ‘c’])
 //  → [ [2,3], [‘b’, ‘c’] ], changeCollection([1,2,3]) → [ [2,3] ] и т.д.
 
-function changeCollection() {
- let handler = arguments[arguments.length - 1];
-  
-  for (var i = 0; i < arguments.length - 1; i++) {
-    let array = arguments[i];
-    
-    handler(array);
+function shiftArr() {
+  let newArr = []
+  for (let i = 0; i < arguments.length; i++) {
+    arguments[i].shift();
   }
 }
-
+shiftArr([1, 2, 4], [32, 12, 5]);
 // 8. Создать функцию которая принимает массив пользователей, 
 // поле на которое хочу проверить и значение на которое хочу
 //  проверять. Проверять что все аргументы переданы. Возвращать 
@@ -122,7 +116,7 @@ users = [
   ];
 
 function funcGetUsers(arr, key, value) {
-    user = arr.filter(function (item) {
+    let user = arr.filter(function (item) {
         return item[key] === value;
     });
     return console.log(user);
@@ -139,45 +133,21 @@ function funcGetUsers(arr, key, value) {
 // “New value: Jhon is 45, Aaron is 20,”
 // firstFunc([‘abc’, ‘123’], handler4) → “New value: cba, 321,” // строки инвертируются
 
-let strArrey = ['My', 'Name', 'Is', 'Trinity']; 
-let numbers = [10, 20, 30];
-let invertStr = ['abc', '123']; 
-let arrUsers = [
-  {
-    age: 45,
-    name: 'Jhon'
-  },
-  {
-    age: 20,
-    name: 'Aaron'
-  }
-]
- 
 function mainFunc(arr, callback){
-  return 'New value: ' + callback(arr)
-}
- 
-function  handler1(arr){
-  return arr.reduce((prev, item) => prev += item.charAt(0).toUpperCase() + item.slice(1));
-}
- 
-function  handler2(arr){
-  return arr.map(item => item * 10);
-}
- 
-function  handler3(arr){
-  return arr.map(item => item.split("").reverse().join(""));
-}
-function handler4(arr){
-  return arr.map(`${item.name} is ${item.age}`);
-
+  if (!Array.isArray(arr)) return console.log('error');
+  let res = 'New value: ';
+  for (let i = 0; i < arr.length; i++) {
+   res += callback(arr[i]);
+  }
+  return res;
 }
 
-console.log(mainFunc(strArrey,  handler1));
-console.log(mainFunc(numbers,  handler2));
-console.log(mainFunc(invertStr,  handler3));
-console.log(mainFunc(arrUsers,  handler4));
+mainRes1 = mainFunc(['my', 'name', 'is', 'denis'], function (item) {
+  return item[0].toUpperCase() + item.slice(1);
+});
 
-
+mainRes2 = mainFunc([2, 3, 4, 5], function (item) {
+ return item * 10 + ' ';
+});
 
 
